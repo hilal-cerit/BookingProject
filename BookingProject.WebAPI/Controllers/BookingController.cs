@@ -16,6 +16,38 @@ namespace BookingProject.WebAPI.Controllers
         }
 
 
+        /// <summary>
+        /// Searchs For Bookings.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET api/Bookings
+        ///     {        
+        ///    ....,
+        ///        "startDate":  "yyyy/mm/dd-hh:mm",
+        ///        "finishDate" : "yyyy/mm/dd-hh:mm",
+        ///   ...
+        ///        
+        ///     }
+        /// </remarks>
+        /// <param name="booking"></param>     
+        [HttpGet]
+        [Route("/bookings/search")]
+        public async Task<ActionResult> SearchBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
+        {
+            try
+            {
+                return Ok( _bookingService.SearchForBooking(firstName: firstName, lastName: lastName, startDate: startDate, finishDate: finishDate, appartmentName: appartmentName, confirmed: confirmed));
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+          
+        }
+
 
 
         [HttpPost]
@@ -65,8 +97,8 @@ namespace BookingProject.WebAPI.Controllers
             {
                 return Ok(_bookingService.Delete(bookingId: id));
             }
-            catch(Exception ex) { 
-            return BadRequest();
+            catch(Exception) { 
+                    return BadRequest();
             }
         }
 
@@ -90,30 +122,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
 
-        /// <summary>
-        /// Searchs For Bookings.
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     GET api/Bookings
-        ///     {        
-        ///    ....,
-        ///        "startDate":  "yyyy/mm/dd-hh:mm",
-        ///        "finishDate" : "yyyy/mm/dd-hh:mm",
-        ///   ...
-        ///        
-        ///     }
-        /// </remarks>
-        /// <param name="booking"></param>     
-        [HttpGet]
-        [Route("/bookings/search")]
-        public async Task<ActionResult> SearchBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
-        { 
-             return Ok(await _bookingService.SearchForBooking(firstName: firstName, lastName: lastName, startDate: startDate, finishDate: finishDate, appartmentName: appartmentName, confirmed: confirmed));
-        }
-
-
+        
 
 
 

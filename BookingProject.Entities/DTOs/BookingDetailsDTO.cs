@@ -20,32 +20,11 @@ namespace BookingProject.Entities.DTOs
         public string? City { get; set; }
         public string? ZipCode { get; set; }
         public string? AppartmentAddress { get; set; }
-        // normal format of startsat:"yyyy-mm-ddThh:mm:ss.fffZ"
-        public string? StartsAt { 
-            get {
-                return DateTime.Parse(StartsAt).ToString("yyyy/mm/dd-hh:mm");
-            }
-            set { }
-        }
+       
+        public string? StartsAt {  get; set;}
         public int? BookedFor { get; set; }
         public int? Confirmed { get; set; }
-
-        
-
-        public string? FinishesAt
-        {
-
-            get {
-             
-                return DateTime.Parse( StartsAt).AddDays(Convert.ToInt64(BookedFor)).ToString("yyyy/mm/dd-hh:mm");
-            }
-
-            set
-            {
-               
-
-            }
-        }
+        public string? FinishesAt{ get; set; }
 
 
 

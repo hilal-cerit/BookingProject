@@ -1,4 +1,5 @@
 ﻿using BookingProject.Common.DataAccess;
+using BookingProject.Common.Entities;
 using BookingProject.Entities.DTOs;
 using BookingProject.Entities.Models;
 using System;
@@ -12,7 +13,7 @@ namespace BookingProject.DataAccess.Abstract
 {
     public interface IBookingDal : IEntityRepository<Booking>
     {
-        public Task<IEnumerable<BookingDetailsDTO>> GetBookingDetailsDtos(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null);
+        public List<BookingDetailsDTO> GetBookingDetailsDtos(Expression<Func<BookingDetailsDTO, bool>> filter);
         
         }
 }

@@ -5,6 +5,7 @@ using BookingProject.Entities.DTOs;
 using BookingProject.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
     public class EfBookingDal : EfEntityRepositoryBase<Booking, booking1661538931410oilduxjtefmbtrtwContext>, IBookingDal
     {
 
-        public async Task<IEnumerable<BookingDetailsDTO>> GetBookingDetailsDtos(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
+        public  List<BookingDetailsDTO> GetBookingDetailsDtos(Expression<Func<BookingDetailsDTO, bool>> filter)
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
@@ -28,11 +29,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                              on bookings.ApartmentId equals appartments.Id
                              join users in context.Users
                              on bookings.UserId equals users.Id
-                             where users.FirstName==firstName && users.LastName==lastName &&
-                             bookings.StartsAt==startDate && appartmentName==appartments.Name && bookings.Confirmed==confirmed 
-
-
-
+                            
                              select new BookingDetailsDTO
                              {
                                  FirstName = users.FirstName,
@@ -45,15 +42,17 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                                  City = appartments.City,
                                  ZipCode = appartments.ZipCode,
                                  AppartmentAddress = appartments.Address,
+                                 // normal format of startsat:"yyyy-mm-ddThh:mm:ss.fffZ"
 
-                                 StartsAt = bookings.StartsAt,
-                                 BookedFor=bookings.BookedFor,
-                                 Confirmed=bookings.Confirmed,
-                                 FinishesAt=bookings.StartsAt+bookings.BookedFor
+                                 StartsAt = DateTime.Parse(bookings.StartsAt).ToString(),
+                                 BookedFor = bookings.BookedFor,
+                                 Confirmed = bookings.Confirmed,
+                                 FinishesAt = DateTime.Parse(bookings.StartsAt).AddDays(Convert.ToInt64(bookings.BookedFor)).ToString()
 
-                     
-            };          
-                 return await result.ToListAsync();
+
+                            };
+
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
             
             
             
@@ -79,11 +78,11 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
-                int isConfirmed = context.Database.ExecuteSqlRaw("SELECT confirmed FROM bookings  WHERE bookings.Id={0} ;", entity.Id);
+                int isConfirmed =  context.Database.ExecuteSqlRaw("SELECT confirmed FROM public.bookings  WHERE id={0};", entity.Id);
                 if (isConfirmed == 0)
                 {
 
-                    context.Database.ExecuteSqlRaw("DELETE FROM bookings WHERE Id={0};", entity.Id);
+                    context.Database.ExecuteSqlRaw("DELETE FROM bookings WHERE id={0};", entity.Id);
                     await context.SaveChangesAsync();
 
                 }

@@ -20,7 +20,14 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
             {
 
                 var latestRow = context.Companies.AsNoTrackingWithIdentityResolution().OrderByDescending(a => a.Id).FirstOrDefault();
-                entity.Id = latestRow.Id + 1;
+                if (latestRow == null)
+                {
+                   entity.Id = 1;
+                }
+                else
+                {
+                    entity.Id = latestRow.Id + 1;
+                }
 
                 context.Database.ExecuteSqlRaw("INSERT INTO company (Id,Name, Age, Address, Salary)" +
                     " VALUES ({0}, {1}, {2}, {3},{4});", entity.Id, entity.Name, entity.Age, entity.Address, entity.Salary);
@@ -35,7 +42,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
                
-                    context.Database.ExecuteSqlRaw("DELETE FROM company WHERE Id={0};", entity.Id);
+                context.Database.ExecuteSqlRaw("DELETE FROM company WHERE Id={0};", entity.Id);
                 await context.SaveChangesAsync();
 
             }
@@ -47,7 +54,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
-                context.Database.ExecuteSqlRaw("UPDATE company SET name={1}, age={2}, full_name={3}, address={4}, salary={5} WHERE id = {0}", entity.Id, entity.Name, entity.Age, entity.Address, entity.Salary);
+                context.Database.ExecuteSqlRaw("UPDATE company SET name={1}, age={2},  address={3}, salary={4} WHERE id = {0}", entity.Id, entity.Name, entity.Age, entity.Address, entity.Salary);
                 await context.SaveChangesAsync();
                 return entity;
             }

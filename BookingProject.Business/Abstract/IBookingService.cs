@@ -16,7 +16,7 @@ namespace BookingProject.Business.Abstract
         Task<Booking> Add(Booking booking);
         Task Delete(int bookingId);
         Task<Booking> Update(Booking booking);
-        Task<IEnumerable<BookingDetailsDTO>> SearchForBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null);
+        List<BookingDetailsDTO> SearchForBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null);
 
 
     }

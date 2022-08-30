@@ -45,18 +45,16 @@ namespace BookingProject.Business.Concrete
             return await _bookingDal.Get(p => p.Id == bookingId);
         }
 
-        public async Task<IEnumerable<BookingDetailsDTO>> SearchForBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
+        public List<BookingDetailsDTO> SearchForBooking(string? userName=null, string? userSurname = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
         {
-            return await
-                _bookingDal.GetBookingDetailsDtos(firstName: firstName, lastName: lastName, startDate: startDate, finishDate: finishDate, appartmentName: appartmentName, confirmed: confirmed);
-                                             /*    x =>
-                                                                   (string.IsNullOrEmpty(userName) || x.FirstName == userName) &&
-                                                                       (string.IsNullOrEmpty(userSurname) || x.LastName == userSurname) &&
-                                                                       (string.IsNullOrEmpty(startDate) || x.StartsAt == startDate) &&
-                                                                       (string.IsNullOrEmpty(finishDate) || x.FinishesAt == finishDate) &&
-                                                                       (string.IsNullOrEmpty(appartmentName) || x.AppartmentName == appartmentName) &&
-                                                                       (!confirmed.HasValue || x.Confirmed == confirmed) 
-                                             );*/
+            return _bookingDal.GetBookingDetailsDtos(x =>
+                                              (string.IsNullOrEmpty(userName) || x.FirstName == userName) &&
+                                              (string.IsNullOrEmpty(userSurname) || x.LastName == userSurname) &&
+                                              (string.IsNullOrEmpty(startDate) || x.StartsAt == startDate) &&
+                                              (string.IsNullOrEmpty(finishDate) || x.FinishesAt == finishDate) &&
+                                              (string.IsNullOrEmpty(appartmentName) || x.AppartmentName == appartmentName) &&
+                                              (!confirmed.HasValue || x.Confirmed == confirmed) 
+                                             );
         }
 
         public async Task<Booking> Update(Booking booking)
