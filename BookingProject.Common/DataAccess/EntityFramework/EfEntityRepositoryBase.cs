@@ -18,6 +18,7 @@ namespace BookingProject.Common.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
+                
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
@@ -61,8 +62,9 @@ namespace BookingProject.Common.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
+               /* var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;*/
+                context.Update(entity);
                 context.SaveChanges();
 
             }

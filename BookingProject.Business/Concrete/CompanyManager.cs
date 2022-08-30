@@ -26,7 +26,7 @@ namespace BookingProject.Business.Concrete
         }
 
         public IResult Delete(int companyId)
-        {
+        {     
             _companyDal.Delete(_companyDal.Get(p => p.Id == companyId));
             return new SuccessResult();
         }

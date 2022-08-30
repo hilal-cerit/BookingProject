@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookingProject.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CompanyController : Controller
     {
         ICompanyService _companyService;
@@ -16,7 +16,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("/api/companies")]
+        [Route("/companies")]
         public IActionResult Create([FromBody] Company company)
         {
             var result = _companyService.Add(company);
@@ -30,7 +30,7 @@ namespace BookingProject.WebAPI.Controllers
 
         }
         [HttpPut]
-        [Route("/api/companies")]
+        [Route("/companies")]
         public IActionResult Update([FromBody] Company company)
         {
             var result = _companyService.Update(company);
@@ -45,7 +45,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/companies/id")]
+        [Route("/companies/id")]
         public ActionResult Delete([FromBody] int id)
         {
 
@@ -59,7 +59,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/api/companies")]
+        [Route("/companies")]
         public IActionResult GetAll()
         {
 
@@ -69,7 +69,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/api/companies/id")]
+        [Route("/companies/id")]
         public IActionResult GetById(int id)
         {
 

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BookingProject.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         IUserService _userService;
@@ -19,8 +19,8 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("/api/users")]
-        public IActionResult Create([FromBody] User user)
+        [Route("/users")]
+        public ActionResult Create([FromBody] User user)
         {
             var result = _userService.Add(user);
             if (result.Success == true)
@@ -33,8 +33,8 @@ namespace BookingProject.WebAPI.Controllers
 
         }
         [HttpPut]
-        [Route("/api/users")]
-        public IActionResult Update([FromBody] User user)
+        [Route("/users")]
+        public ActionResult Update([FromBody] User user)
         {
             var result = _userService.Update(user);
             if (result.Success == true)
@@ -48,7 +48,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/users/id")]
+        [Route("/users/id")]
         public ActionResult Delete([FromBody]int id)
         {
 
@@ -62,7 +62,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/api/users")]
+        [Route("/users")]
         public IActionResult GetAll()
          {
             
@@ -72,7 +72,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/api/users/id")]
+        [Route("/users/id")]
         public IActionResult GetById(int id)
         {
 

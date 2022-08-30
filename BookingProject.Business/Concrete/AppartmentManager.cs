@@ -1,6 +1,5 @@
 ﻿using BookingProject.Business.Abstract;
-using BookingProject.Business.ValidatorRules.FluentValidation;
-using BookingProject.Common.Aspects.Autofac.Validation;
+
 using BookingProject.DataAccess.Abstract;
 using BookingProject.DataAccess.Concrete.EntityFramework;
 using BookingProject.Entities.Models;

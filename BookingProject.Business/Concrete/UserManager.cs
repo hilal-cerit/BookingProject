@@ -1,6 +1,5 @@
 ﻿using BookingProject.Business.Abstract;
-using BookingProject.Business.ValidatorRules.FluentValidation;
-using BookingProject.Common.Aspects.Autofac.Validation;
+
 using BookingProject.DataAccess.Abstract;
 using BookingProject.DataAccess.Concrete.EntityFramework;
 using BookingProject.Entities.Models;
@@ -26,7 +25,7 @@ namespace BookingProject.Business.Concrete
             _userDal.Add(user);
             return new SuccessResult();
         }
-        [ValidationAspect(typeof(BookingValidation))]
+   
         public IResult Delete(int userId)
         {
             var userToDelete = _userDal.Get(p => p.Id == userId);

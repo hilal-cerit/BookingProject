@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.SignalR.Protocol;
 namespace BookingProject.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BookingController : Controller
     {
         IBookingService _bookingService;
@@ -19,7 +19,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpPost]
-        [Route("/api/bookings")]
+        [Route("/bookings")]
         public IActionResult Create([FromBody] Booking booking)
         {
             var result = _bookingService.Add(booking);
@@ -33,7 +33,7 @@ namespace BookingProject.WebAPI.Controllers
 
         }
         [HttpPut]
-        [Route("/api/bookings")]
+        [Route("/bookings")]
         public IActionResult Update([FromBody] Booking booking)
         {
             var result = _bookingService.Update(booking);
@@ -48,7 +48,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/bookings/id")]
+        [Route("/bookings/id")]
         public ActionResult Delete([FromBody] int id)
         {
 
@@ -62,7 +62,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/api/bookings")]
+        [Route("/bookings")]
         public IActionResult GetAll()
         {
 
@@ -72,7 +72,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/api/bookings/id")]
+        [Route("/bookings/id")]
         public IActionResult GetById(int id)
         {
 
@@ -97,7 +97,7 @@ namespace BookingProject.WebAPI.Controllers
         /// </remarks>
         /// <param name="booking"></param>     
         [HttpGet]
-        [Route("/api/bookings/search")]
+        [Route("/bookings/search")]
         public IActionResult SearchBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
         { 
              return Ok(_bookingService.SearchForBooking(userName: firstName, userSurname: lastName, startDate: startDate, finishDate: finishDate, appartmentName: appartmentName, confirmed: confirmed));
