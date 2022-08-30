@@ -27,6 +27,8 @@ And then from package console manager we need to write this command in order to 
 
 ## Swagger 
 
+![1](https://user-images.githubusercontent.com/77547891/187552724-cae61cb7-fb7c-45c3-9a5c-30e1715e0e3e.PNG)
+![2](https://user-images.githubusercontent.com/77547891/187552753-48cce640-d875-4844-8db9-6ecbb0e86644.PNG)
 
 
 
