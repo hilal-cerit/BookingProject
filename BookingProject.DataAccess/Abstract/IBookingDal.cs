@@ -12,7 +12,7 @@ namespace BookingProject.DataAccess.Abstract
 {
     public interface IBookingDal : IEntityRepository<Booking>
     {
-        public List<BookingDetailsDTO> GetBookingDetailsDtos(Expression<Func<BookingDetailsDTO, bool>> filter = null);
+        public Task<IEnumerable<BookingDetailsDTO>> GetBookingDetailsDtos(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null);
         
         }
 }

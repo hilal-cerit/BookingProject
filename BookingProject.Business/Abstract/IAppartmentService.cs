@@ -10,12 +10,12 @@ namespace BookingProject.Business.Abstract
 {
     public interface IAppartmentService
     {
-        
-        IDataResult<List<Appartment>> GetAll();
-        IResult Add(Appartment appartment);
-        IResult Delete(int appartmentId);
-        IResult Update(Appartment appartment);
-        IDataResult<Appartment> GetById(int appartmentId);
+
+        Task<IEnumerable<Appartment>> GetAll();
+        Task<Appartment> Add(Appartment appartment);
+        Task Delete(int appartmentId);
+        Task<Appartment> Update(Appartment appartment);
+        Task<Appartment> GetById(int appartmentId);
 
 
     }

@@ -11,12 +11,12 @@ namespace BookingProject.Business.Abstract
 {
     public interface IBookingService
     {
-        IDataResult<Booking> GetById(int bookingId);
-        IDataResult<List<Booking>> GetAll();
-        IResult Add(Booking booking);
-        IResult Delete(int bookingId);
-        IResult Update(Booking booking);
-        IDataResult<List<BookingDetailsDTO>> SearchForBooking(string? userName = null, string? userSurname = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null);
+        Task<Booking> GetById(int bookingId);
+        Task<IEnumerable<Booking>> GetAll();
+        Task<Booking> Add(Booking booking);
+        Task Delete(int bookingId);
+        Task<Booking> Update(Booking booking);
+        Task<IEnumerable<BookingDetailsDTO>> SearchForBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null);
 
 
     }

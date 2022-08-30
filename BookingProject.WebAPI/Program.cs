@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 
 //Dependency resolvers
 builder.Services.AddScoped<BookingDetailsDTO>();
+
 builder.Services.AddScoped<booking1661538931410oilduxjtefmbtrtwContext>();
 builder.Services.AddSingleton<IUserDal,EfUserDal>();
 builder.Services.AddScoped<IUserService,UserManager>();

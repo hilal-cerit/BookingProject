@@ -4,6 +4,7 @@ using BookingProject.Entities.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace BookingProject.WebAPI.Controllers
 {
@@ -20,63 +21,98 @@ namespace BookingProject.WebAPI.Controllers
 
         [HttpPost]
         [Route("/users")]
-        public ActionResult Create([FromBody] User user)
+        public async Task<ActionResult> Create([FromBody] User user)
         {
-            var result = _userService.Add(user);
-            if (result.Success == true)
+            try
             {
-                return Ok();
+             return Ok(await _userService.Add(user));
             }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
+           
             
-            return BadRequest();
+            
+           
 
 
         }
         [HttpPut]
         [Route("/users")]
-        public ActionResult Update([FromBody] User user)
+        public async Task<ActionResult>  Update([FromBody] User user)
         {
-            var result = _userService.Update(user);
-            if (result.Success == true)
+            try
             {
-                return Ok();
+             return Ok(await _userService.Update(user));
             }
+            catch (Exception)
+            {
 
-            return BadRequest();
+                return BadRequest();
+            }
+           
+
+           
+          
+
+           
 
 
         }
 
         [HttpDelete]
         [Route("/users/id")]
-        public ActionResult Delete([FromBody]int id)
+        public async Task<ActionResult> Delete([FromBody]int id)
         {
-
-            var result = _userService.Delete(userId: id);
-            if (result.Success)
+            try
             {
-                return Ok(result);
+              return Ok(_userService.Delete(userId: id));
             }
-            return BadRequest(result);
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+               
+            
+           
         }
 
 
         [HttpGet]
         [Route("/users")]
-        public IActionResult GetAll()
+        public async Task<ActionResult> GetAll()
          {
-            
-             return Ok(_userService.GetAll());
+            try
+            {
+                return Ok(await _userService.GetAll());
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,"Error retrieving data from database");
+
+            }
+          
          }
 
 
 
         [HttpGet]
         [Route("/users/id")]
-        public IActionResult GetById(int id)
+        public async Task<ActionResult> GetById(int id)
         {
+            try
+            {
+                return Ok(await _userService.GetById(userId:id));
+            }
+            catch (Exception)
+            {
+                return BadRequest(); ;
 
-            return Ok(_userService.GetById(userId:id));
+            }
         }
 
 

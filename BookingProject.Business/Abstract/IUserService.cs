@@ -10,11 +10,11 @@ namespace BookingProject.Business.Abstract
 {
     public interface IUserService
     {
-  
-        IDataResult<User> GetById(int userId);
-        IDataResult<List<User>> GetAll();
-        IResult Add(User user);
-        IResult Delete(int userId);
-        IResult Update(User user);
+
+        Task<User> GetById(int userId);
+        Task<IEnumerable<User>> GetAll();
+        Task<User> Add(User user);
+        Task Delete(int userId);
+        Task<User> Update(User user);
     }
 }

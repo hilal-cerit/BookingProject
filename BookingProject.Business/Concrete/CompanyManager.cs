@@ -17,35 +17,35 @@ namespace BookingProject.Business.Concrete
         public CompanyManager(ICompanyDal companyDal)
         {
             _companyDal = companyDal;
-    }
-
-        public IResult Add(Company company)
-        {
-            _companyDal.Add(company);
-            return new SuccessResult();
         }
 
-        public IResult Delete(int companyId)
+        public async Task<Company> Add(Company company)
+        {
+           
+            return await _companyDal.Add(company) ;
+        }
+
+        public async Task Delete(int companyId)
         {     
-            _companyDal.Delete(_companyDal.Get(p => p.Id == companyId));
-            return new SuccessResult();
+           
+           await _companyDal.Delete(await _companyDal.Get(p => p.Id == companyId));
         }
 
-        public IDataResult<List<Company>> GetAll()
+        public async Task<IEnumerable<Company>> GetAll()
         {
-            return new SuccessDataResult<List<Company>>(_companyDal.GetAll());
+            return await _companyDal.GetAll();
         }
 
-        public IDataResult<Company> GetById(int companyId)
+        public async Task<Company> GetById(int companyId)
         {
 
-            return new SuccessDataResult<Company>(_companyDal.Get(p => p.Id == companyId));
+            return await _companyDal.Get(p => p.Id == companyId);
         }
 
-        public IResult Update(Company company)
+        public async Task<Company> Update(Company company)
         {
-            _companyDal.Update(company);
-            return new SuccessResult();
+            ;
+            return await _companyDal.Update(company) ;
         }
     }
 }

@@ -11,10 +11,10 @@ namespace BookingProject.Business.Abstract
     public interface ICompanyService
     {
 
-        IDataResult<Company> GetById(int companyId);
-        IDataResult<List<Company>> GetAll();
-        IResult Add(Company company);
-        IResult Delete(int companyId);
-        IResult Update(Company company);
+        Task<Company> GetById(int companyId);
+        Task<IEnumerable<Company>> GetAll();
+        Task<Company> Add(Company company);
+        Task Delete(int companyId);
+        Task<Company> Update(Company company);
     }
 }

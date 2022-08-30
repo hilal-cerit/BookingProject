@@ -19,49 +19,50 @@ namespace BookingProject.Business.Concrete
         {
             _bookingDal= bookingDal;    
         }
+        
 
 
-
-        public IResult Add(Booking booking)
+        public  async Task<Booking> Add(Booking booking)
         {
-            _bookingDal.Add(booking);
-            return new SuccessResult();
+            
+            return await _bookingDal.Add(booking);
         }
 
-        public IResult Delete(int bookingId)
+        public async Task Delete(int bookingId)
         {
           
-            _bookingDal.Delete(_bookingDal.Get(p => p.Id == bookingId));
-            return new SuccessResult();
+            
+           await _bookingDal.Delete(await _bookingDal.Get(p => p.Id == bookingId));
         }
 
-        public IDataResult<List<Booking>> GetAll()
+        public async Task<IEnumerable<Booking>> GetAll()
         {
-            return new SuccessDataResult<List<Booking>>(_bookingDal.GetAll());
+            return await _bookingDal.GetAll();
         }
 
-        public IDataResult<Booking> GetById(int bookingId)
+        public async Task<Booking> GetById(int bookingId)
         {
-            return new SuccessDataResult<Booking>(_bookingDal.Get(p => p.Id == bookingId));
+            return await _bookingDal.Get(p => p.Id == bookingId);
         }
 
-        public IDataResult<List<BookingDetailsDTO>> SearchForBooking(string? userName=null, string? userSurname = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
+        public async Task<IEnumerable<BookingDetailsDTO>> SearchForBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
         {
-            return new SuccessDataResult<List<BookingDetailsDTO>>(
-                _bookingDal.GetBookingDetailsDtos(x =>
-                                              (string.IsNullOrEmpty(userName) || x.FirstName == userName) &&
-                                              (string.IsNullOrEmpty(userSurname) || x.LastName == userSurname) &&
-                                              (string.IsNullOrEmpty(startDate) || x.StartsAt == startDate) &&
-                                              (string.IsNullOrEmpty(finishDate) || x.StartsAt == startDate) &&
-                                              (string.IsNullOrEmpty(appartmentName) || x.StartsAt == startDate) &&
-                                              (!confirmed.HasValue || x.Confirmed == confirmed) 
-                                             ));
+            return await
+                _bookingDal.GetBookingDetailsDtos(firstName: firstName, lastName: lastName, startDate: startDate, finishDate: finishDate, appartmentName: appartmentName, confirmed: confirmed);
+                                             /*    x =>
+                                                                   (string.IsNullOrEmpty(userName) || x.FirstName == userName) &&
+                                                                       (string.IsNullOrEmpty(userSurname) || x.LastName == userSurname) &&
+                                                                       (string.IsNullOrEmpty(startDate) || x.StartsAt == startDate) &&
+                                                                       (string.IsNullOrEmpty(finishDate) || x.FinishesAt == finishDate) &&
+                                                                       (string.IsNullOrEmpty(appartmentName) || x.AppartmentName == appartmentName) &&
+                                                                       (!confirmed.HasValue || x.Confirmed == confirmed) 
+                                             );*/
         }
 
-        public IResult Update(Booking booking)
+        public async Task<Booking> Update(Booking booking)
         {
-            _bookingDal.Update(booking);
-            return new SuccessResult();
+           
+            return await _bookingDal.Update(booking);
         }
     }
 }

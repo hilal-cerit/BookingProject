@@ -21,33 +21,33 @@ namespace BookingProject.Business.Concrete
             _appartmentDal = appartmentDal;
         }
 
-        public IResult Add(Appartment appartment)
+        public async Task<Appartment> Add(Appartment appartment)
         {
-            _appartmentDal.Add(appartment);
+           
          
-            return new SuccessResult();
+            return await _appartmentDal.Add(appartment);
         }
-        public IResult Delete(int appartmentId)
+        public async Task Delete(int appartmentId)
         {
-           _appartmentDal.Delete(_appartmentDal.Get(p => p.Id == appartmentId));
-            return new SuccessResult();
+           await _appartmentDal.Delete( await _appartmentDal.Get(p => p.Id == appartmentId));
+          
         }
 
-        public IDataResult<List<Appartment>> GetAll()
+        public async Task<IEnumerable<Appartment>> GetAll()
         {
           
-            return new SuccessDataResult<List<Appartment>>(_appartmentDal.GetAll());
+            return await _appartmentDal.GetAll();
         }
 
-        public IDataResult<Appartment> GetById(int appartmentId)
+        public async Task<Appartment> GetById(int appartmentId)
         {
-            return new SuccessDataResult<Appartment>(_appartmentDal.Get(p=>p.Id==appartmentId));
+            return await _appartmentDal.Get(p=>p.Id==appartmentId);
         }
 
-        public IResult Update(Appartment appartment)
+        public async Task<Appartment> Update(Appartment appartment)
         {
-            _appartmentDal.Update(appartment);
-            return new SuccessResult();
+          
+            return await _appartmentDal.Update(appartment);
         }
     }
 }

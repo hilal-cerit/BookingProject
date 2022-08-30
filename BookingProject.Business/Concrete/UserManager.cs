@@ -20,33 +20,33 @@ namespace BookingProject.Business.Concrete
             _userDal = userDal;
         }
 
-        public IResult Add(User user)
+        public async Task<User>Add(User user)
         {
-            _userDal.Add(user);
-            return new SuccessResult();
+           
+            return await _userDal.Add(user);
         }
    
-        public IResult Delete(int userId)
+        public async Task Delete(int userId)
         {
-            var userToDelete = _userDal.Get(p => p.Id == userId);
-            _userDal.Delete(userToDelete);
-            return new SuccessResult();
+            var userToDelete =  await _userDal.Get(p => p.Id == userId);
+           
+            await  _userDal.Delete(userToDelete);
         }
 
-        public IDataResult<List<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll());
+            return await _userDal.GetAll();
         }
 
-        public IDataResult<User> GetById(int userId)
+        public async Task<User> GetById(int userId)
         {
-            return new SuccessDataResult<User>(_userDal.Get(p => p.Id == userId));
+            return await _userDal.Get(p => p.Id == userId);
         }
 
-        public IResult Update(User user)
+        public async Task<User> Update(User user)
         {
-            _userDal.Update(user);
-            return new SuccessResult();
+            
+            return await _userDal.Update(user);
         }
     }
 }

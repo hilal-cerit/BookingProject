@@ -19,7 +19,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
     public class EfBookingDal : EfEntityRepositoryBase<Booking, booking1661538931410oilduxjtefmbtrtwContext>, IBookingDal
     {
 
-        public List<BookingDetailsDTO> GetBookingDetailsDtos(Expression<Func<BookingDetailsDTO, bool>> filter=null)
+        public async Task<IEnumerable<BookingDetailsDTO>> GetBookingDetailsDtos(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
@@ -28,6 +28,10 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                              on bookings.ApartmentId equals appartments.Id
                              join users in context.Users
                              on bookings.UserId equals users.Id
+                             where users.FirstName==firstName && users.LastName==lastName &&
+                             bookings.StartsAt==startDate && appartmentName==appartments.Name && bookings.Confirmed==confirmed 
+
+
 
                              select new BookingDetailsDTO
                              {
@@ -44,23 +48,18 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
 
                                  StartsAt = bookings.StartsAt,
                                  BookedFor=bookings.BookedFor,
-                                 Confirmed=bookings.Confirmed
-                                 
-};           if (filter != null)
-                {
-                    return result.Where(filter).ToList(); 
-                }
-                else
-                {
-                    return result.ToList();
-                }
-           
+                                 Confirmed=bookings.Confirmed,
+                                 FinishesAt=bookings.StartsAt+bookings.BookedFor
+
+                     
+            };          
+                 return await result.ToListAsync();
             
             
             
             }
             }
-        public void Add(Booking entity)
+        public async Task<Booking> Add(Booking entity)
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
@@ -71,11 +70,12 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                 context.Database.ExecuteSqlRaw("INSERT INTO bookings (id,user_id, starts_At, booked_at, booked_for,apartment_id,confirmed)" +
                     " VALUES ({0}, {1}, {2}, {3},{4},{5},{6});", entity.Id, entity.UserId, entity.StartsAt, entity.BookedAt, entity.BookedFor,entity.ApartmentId,entity.Confirmed);
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
+                return entity;
 
             }
         }
-        public void Delete(Booking entity)
+        public async Task Delete(Booking entity)
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
@@ -84,7 +84,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                 {
 
                     context.Database.ExecuteSqlRaw("DELETE FROM bookings WHERE Id={0};", entity.Id);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                 }
                 else
@@ -96,15 +96,16 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
 
 
         }
-        public void Update(Booking entity)
+        public async Task<Booking> Update(Booking entity)
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
-                context.Database.ExecuteSqlRaw("UPDATE bookings SET user_id={1}, starts_At={2}, booked_at={3}, booked_for={4}, apartment_id={5} confirmed={6} WHERE id = {0}",
+                context.Database.ExecuteSqlRaw("UPDATE bookings SET user_id={1}, starts_At={2}, booked_at={3}, booked_for={4}, apartment_id={5} ,confirmed={6} WHERE id = {0}",
                     entity.Id, entity.UserId, entity.StartsAt, entity.BookedAt, entity.BookedFor, entity.ApartmentId, entity.Confirmed);
 
-             
-                context.SaveChanges();
+
+                await context.SaveChangesAsync();
+                return entity;
             }
         }
      

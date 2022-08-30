@@ -20,63 +20,73 @@ namespace BookingProject.WebAPI.Controllers
 
         [HttpPost]
         [Route("/bookings")]
-        public IActionResult Create([FromBody] Booking booking)
+        public async Task<ActionResult> Create([FromBody] Booking booking)
         {
-            var result = _bookingService.Add(booking);
-            if (result.Success == true)
+      
+            try
             {
-                return Ok();
+                return  Ok(await _bookingService.Add(booking));
             }
+            catch (Exception)
+            {
 
             return BadRequest();
+            }
+          
+
 
 
         }
         [HttpPut]
         [Route("/bookings")]
-        public IActionResult Update([FromBody] Booking booking)
+        public async Task<ActionResult> Update([FromBody] Booking booking)
         {
-            var result = _bookingService.Update(booking);
-            if (result.Success == true)
+           
+            try
             {
-                return Ok();
+                return Ok(await _bookingService.Update(booking));
             }
 
-            return BadRequest();
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
 
 
         }
 
         [HttpDelete]
         [Route("/bookings/id")]
-        public ActionResult Delete([FromBody] int id)
+        public async Task<ActionResult> Delete([FromBody] int id)
         {
 
-            var result = _bookingService.Delete(bookingId: id);
-            if (result.Success)
+            
+           try
             {
-                return Ok(result);
+                return Ok(_bookingService.Delete(bookingId: id));
             }
-            return BadRequest(result);
+            catch(Exception ex) { 
+            return BadRequest();
+            }
         }
 
 
         [HttpGet]
         [Route("/bookings")]
-        public IActionResult GetAll()
+        public async Task<ActionResult> GetAll()
         {
 
-            return Ok(_bookingService.GetAll());
+            return Ok(await _bookingService.GetAll());
         }
 
 
 
         [HttpGet]
         [Route("/bookings/id")]
-        public IActionResult GetById(int id)
+        public async Task<ActionResult> GetById(int id)
         {
 
-            return Ok(_bookingService.GetById(bookingId: id));
+            return Ok(await _bookingService.GetById(bookingId: id));
         }
 
 
@@ -98,9 +108,9 @@ namespace BookingProject.WebAPI.Controllers
         /// <param name="booking"></param>     
         [HttpGet]
         [Route("/bookings/search")]
-        public IActionResult SearchBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
+        public async Task<ActionResult> SearchBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
         { 
-             return Ok(_bookingService.SearchForBooking(userName: firstName, userSurname: lastName, startDate: startDate, finishDate: finishDate, appartmentName: appartmentName, confirmed: confirmed));
+             return Ok(await _bookingService.SearchForBooking(firstName: firstName, lastName: lastName, startDate: startDate, finishDate: finishDate, appartmentName: appartmentName, confirmed: confirmed));
         }
 
 
