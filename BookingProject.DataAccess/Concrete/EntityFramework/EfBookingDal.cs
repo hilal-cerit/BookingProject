@@ -3,6 +3,7 @@ using BookingProject.Common.Entities;
 using BookingProject.DataAccess.Abstract;
 using BookingProject.Entities.DTOs;
 using BookingProject.Entities.Models;
+using ChatApp.Common.Result;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -44,10 +45,10 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                                  AppartmentAddress = appartments.Address,
                                  // normal format of startsat:"yyyy-mm-ddThh:mm:ss.fffZ"
 
-                                 StartsAt = DateTime.Parse(bookings.StartsAt).ToString(),
+                                 StartsAt = bookings.StartsAt,
                                  BookedFor = bookings.BookedFor,
                                  Confirmed = bookings.Confirmed,
-                                 FinishesAt = DateTime.Parse(bookings.StartsAt).AddDays(Convert.ToInt64(bookings.BookedFor)).ToString()
+                                 FinishesAt = DateTime.Parse(bookings.StartsAt).AddDays(Convert.ToInt64(bookings.BookedFor)).ToString("yyyy-mm-dd hh:mm")
 
 
                             };
@@ -78,18 +79,21 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
-                int isConfirmed =  context.Database.ExecuteSqlRaw("SELECT confirmed FROM public.bookings  WHERE id={0};", entity.Id);
-                if (isConfirmed == 0)
+               
+                var isConfirmed =  context.Set<Booking>().FromSqlRaw("SELECT * FROM bookings WHERE id={0}",entity.Id).FirstOrDefault();
+                if (isConfirmed.Confirmed == 0)
                 {
 
-                    context.Database.ExecuteSqlRaw("DELETE FROM bookings WHERE id={0};", entity.Id);
+                    context.Database.ExecuteSqlRaw("DELETE FROM bookings WHERE id={0} ", entity.Id);
                     await context.SaveChangesAsync();
-
+                   
                 }
                 else
                 {
                     throw new Exception("Can't delete this data because it is not confirmed");
+                
                 }
+            
             }
 
 

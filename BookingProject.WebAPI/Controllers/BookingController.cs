@@ -2,6 +2,7 @@
 using BookingProject.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR.Protocol;
+using System.Net;
 
 namespace BookingProject.WebAPI.Controllers
 {
@@ -95,10 +96,13 @@ namespace BookingProject.WebAPI.Controllers
             
            try
             {
-                return Ok(_bookingService.Delete(bookingId: id));
+              
+                      return Ok( _bookingService.Delete(bookingId: id));
+              
             }
-            catch(Exception) { 
-                    return BadRequest();
+            catch(Exception) {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+             "Error deleting data");
             }
         }
 

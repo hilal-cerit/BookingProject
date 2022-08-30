@@ -1,4 +1,5 @@
 ﻿using BookingProject.Common.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,8 @@ namespace BookingProject.Common.DataAccess.EntityFramework
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
                 await context.SaveChangesAsync();
-                
+             
+
             }
         }
 

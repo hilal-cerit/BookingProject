@@ -1,5 +1,6 @@
 ﻿using BookingProject.Business.Abstract;
 using BookingProject.Entities.Models;
+using ChatApp.Common.Result;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingProject.WebAPI.Controllers
@@ -60,12 +61,16 @@ namespace BookingProject.WebAPI.Controllers
 
             try
             {
-                return Ok(_companyService.Delete(companyId: id));
+                _companyService.Delete(companyId: id);
+                 return Ok();
+                
+               
             }
             catch (Exception)
             {
 
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                 "Error deleting data");
             }
           
             

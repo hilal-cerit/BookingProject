@@ -1,6 +1,7 @@
 ﻿using BookingProject.Common.DataAccess.EntityFramework;
 using BookingProject.DataAccess.Abstract;
 using BookingProject.Entities.Models;
+using ChatApp.Common.Result;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                
                 context.Database.ExecuteSqlRaw("DELETE FROM company WHERE Id={0};", entity.Id);
                 await context.SaveChangesAsync();
+             
 
             }
 

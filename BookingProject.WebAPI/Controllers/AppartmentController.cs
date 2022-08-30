@@ -53,12 +53,14 @@ namespace BookingProject.WebAPI.Controllers
         {
             try
             {
-                return Ok(_appartmentService.Delete(appartmentId: id));
+                _appartmentService.Delete(appartmentId: id);
+                return Ok();
             }
             catch (Exception)
             {
 
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error deleting data");
             }
           
           

@@ -2,6 +2,7 @@
 using BookingProject.Common.Entities;
 using BookingProject.DataAccess.Abstract;
 using BookingProject.Entities.Models;
+using ChatApp.Common.Result;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -34,16 +35,18 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
-              /*  int isConfirmed = context.Database.ExecuteSqlRaw("SELECT confirmed FROM bookings join users on users.Id=bookings.user_id WHERE users.Id={0} ;", entity.Id);
-                if(isConfirmed==0) {*/
-                context.Database.ExecuteSqlRaw("DELETE FROM users WHERE Id={0};",entity.Id);
-                await context.SaveChangesAsync();
-             
-              /*  }
+                var isConfirmed = context.Set<Booking>().FromSqlRaw("SELECT bookings.confirmed FROM bookings , users WHERE users.Id=bookings.user_id  and users.Id={0} ", entity.Id).FirstOrDefault();
+                if (isConfirmed.Confirmed == 0)
+                {
+                   
+                    context.Database.ExecuteSqlRaw("DELETE FROM users WHERE Id={0};",entity.Id);
+                     await context.SaveChangesAsync();
+                 
+                }
                 else
                 {
                     throw new Exception("Can't delete this data because it is not confirmed");
-                }*/
+                }
 
             }
 

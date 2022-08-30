@@ -29,8 +29,9 @@ namespace BookingProject.Business.Concrete
         public async Task Delete(int userId)
         {
             var userToDelete =  await _userDal.Get(p => p.Id == userId);
-           
-            await  _userDal.Delete(userToDelete);
+
+            await _userDal.Delete(userToDelete);
+            
         }
 
         public async Task<IEnumerable<User>> GetAll()

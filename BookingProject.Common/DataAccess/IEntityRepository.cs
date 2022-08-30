@@ -1,4 +1,5 @@
-﻿using BookingProject.Common.Entities;
+﻿
+using BookingProject.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

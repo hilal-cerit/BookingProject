@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using ChatApp.Common.Result;
 
 namespace BookingProject.WebAPI.Controllers
 {
@@ -67,16 +68,27 @@ namespace BookingProject.WebAPI.Controllers
         [Route("/users/id")]
         public async Task<ActionResult> Delete([FromBody]int id)
         {
+
+
+
             try
             {
-              return Ok(_userService.Delete(userId: id));
+                _userService.Delete(userId: id);
+                return Ok();
             }
             catch (Exception)
             {
 
                 return BadRequest();
             }
-               
+
+
+           
+                
+            
+            
+            
+          
             
            
         }
