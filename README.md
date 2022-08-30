@@ -1,15 +1,19 @@
 # BookingProject
+* Booking/Search kısmındaki tarihleri aratma sorunu.[Diğer parametrelerde sorun yok] Örneğin isim ve confirme parametrelerini doldurup aratırsanız sorun çıkmayacaktır.]
+* Confirmed'ün kontrol edildiği Booking,User ve Appartment Delete metodunun çalışma sorunu var.
+
 This project is written with C# language and using ASP.NET Core and EntityFramework Core.
 This project was written with a layered architectural understanding.(Which is 4 layers Entities-DataAccessLayer-Business Logic-WebAPI)
 
 In this project   https://uibakery.io/sql-playground used as a database so it is a Database-First EntityFramework approach project.In order to implement this db to the Entity Layer we need these packages to be installed in this layer.
-  --*-- Microsoft.EntityFrameworkCore.Design
-        Microsoft.EntityFrameworkCore.Tools
-        Microsoft.NETCore.App
-        Npgsql.EntityFrameworkCore.PostgreSQL
-        Npgsql.EntityFrameworkCore.PostgreSQL.Design--*--
+* Microsoft.EntityFrameworkCore.Design
+* Microsoft.EntityFrameworkCore.Tools
+* Microsoft.NETCore.App
+* Npgsql.EntityFrameworkCore.PostgreSQL.Design
+
 And then from package console manager we need to write this command in order to get db tables version of entity classes.
-*DB First: Scaffold-DbContext "Host=psql-mock-database-cloud.postgres.database.azure.com;Database=booking1661538931410oilduxjtefmbtrtw;Username=xwwzlphatkrjstcjmzijpjny@psql-mock-database-cloud;Password=xvowrtzabjyowgmtwocwzfrd" Npgsql.EntityFrameworkCore.PostgreSQL -o Models
+
+* Scaffold-DbContext "Host=psql-mock-database-cloud.postgres.database.azure.com;Database=booking1661538931410oilduxjtefmbtrtw;Username=xwwzlphatkrjstcjmzijpjny@psql-mock-database-cloud;Password=xvowrtzabjyowgmtwocwzfrd" Npgsql.EntityFrameworkCore.PostgreSQL -o Models
 
 
 
