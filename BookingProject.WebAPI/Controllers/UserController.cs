@@ -49,10 +49,10 @@ namespace BookingProject.WebAPI.Controllers
             {
              return Ok(await _userService.Update(user));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
            
 
@@ -73,13 +73,13 @@ namespace BookingProject.WebAPI.Controllers
 
             try
             {
-                _userService.Delete(userId: id);
+                await _userService.Delete(userId: id);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex )
             {
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
 

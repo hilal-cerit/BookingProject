@@ -77,12 +77,13 @@ namespace BookingProject.WebAPI.Controllers
            
             try
             {
-                return Ok(await _bookingService.Update(booking));
+                
+                    return Ok(await _bookingService.Update(booking));
             }
 
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
 
@@ -96,13 +97,12 @@ namespace BookingProject.WebAPI.Controllers
             
            try
             {
-              
-                      return Ok( _bookingService.Delete(bookingId: id));
+              await _bookingService.Delete(bookingId: id);
+              return Ok();
               
             }
-            catch(Exception) {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-             "Error deleting data");
+            catch(Exception ex) {
+                return  BadRequest(ex.Message);
             }
         }
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BookingProject.Business.Concrete
 {
@@ -29,7 +30,15 @@ namespace BookingProject.Business.Concrete
         }
         public async Task Delete(int appartmentId)
         {
-           await _appartmentDal.Delete( await _appartmentDal.Get(p => p.Id == appartmentId));
+            if (await _appartmentDal.Get(p => p.Id == appartmentId) != null)
+            {
+                await _appartmentDal.Delete(await _appartmentDal.Get(p => p.Id == appartmentId));
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
+         
           
         }
 
@@ -46,8 +55,15 @@ namespace BookingProject.Business.Concrete
 
         public async Task<Appartment> Update(Appartment appartment)
         {
-          
-            return await _appartmentDal.Update(appartment);
+            if (await _appartmentDal.Get(p => p.Id == appartment.Id) != null)
+            {
+                return await _appartmentDal.Update(appartment);
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
+           
         }
     }
 }

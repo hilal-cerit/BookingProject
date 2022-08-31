@@ -42,9 +42,9 @@ namespace BookingProject.WebAPI.Controllers
             {
                 return Ok(await _companyService.Update(company));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
 
             }
 
@@ -61,16 +61,15 @@ namespace BookingProject.WebAPI.Controllers
 
             try
             {
-                _companyService.Delete(companyId: id);
+               await _companyService.Delete(companyId: id);
                  return Ok();
                 
                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                 "Error deleting data");
+                return BadRequest(ex.Message);
             }
           
             

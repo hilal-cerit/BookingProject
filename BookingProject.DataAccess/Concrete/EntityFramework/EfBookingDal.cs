@@ -9,10 +9,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Numerics;
 using System.Reflection.Emit;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,12 +27,10 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
-                var result = from bookings in context.Bookings
-                             join appartments in context.Appartments
-                             on bookings.ApartmentId equals appartments.Id
-                             join users in context.Users
-                             on bookings.UserId equals users.Id
-                            
+                var result = from users in context.Users
+                              join bookings in context.Bookings on users.Id  equals bookings.UserId
+                             join   appartments in context.Appartments on bookings.ApartmentId equals appartments.Id
+
                              select new BookingDetailsDTO
                              {
                                  FirstName = users.FirstName,
@@ -45,13 +45,16 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
                                  AppartmentAddress = appartments.Address,
                                  // normal format of startsat:"yyyy-mm-ddThh:mm:ss.fffZ"
 
-                                 StartsAt = bookings.StartsAt,
+                                 StartsAt = DateTime.Parse(bookings.StartsAt, null, DateTimeStyles.RoundtripKind).ToString(),
+                                 FinishesAt = DateTime.Parse(bookings.StartsAt, null, DateTimeStyles.RoundtripKind).AddDays(Convert.ToInt64(bookings.BookedFor)).ToString(),
                                  BookedFor = bookings.BookedFor,
                                  Confirmed = bookings.Confirmed,
-                                 FinishesAt = DateTime.Parse(bookings.StartsAt).AddDays(Convert.ToInt64(bookings.BookedFor)).ToString("yyyy-mm-dd hh:mm")
+                             
 
 
                             };
+
+              
 
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
             
@@ -103,6 +106,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
+             
                 context.Database.ExecuteSqlRaw("UPDATE bookings SET user_id={1}, starts_At={2}, booked_at={3}, booked_for={4}, apartment_id={5} ,confirmed={6} WHERE id = {0}",
                     entity.Id, entity.UserId, entity.StartsAt, entity.BookedAt, entity.BookedFor, entity.ApartmentId, entity.Confirmed);
 

@@ -5,9 +5,11 @@ using BookingProject.Entities.Models;
 using ChatApp.Common.Result;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BookingProject.Business.Concrete
 {
@@ -26,9 +28,16 @@ namespace BookingProject.Business.Concrete
         }
 
         public async Task Delete(int companyId)
-        {     
-           
-           await _companyDal.Delete(await _companyDal.Get(p => p.Id == companyId));
+        {
+            if (await _companyDal.Get(p => p.Id == companyId) != null)
+            {
+                await _companyDal.Delete(await _companyDal.Get(p => p.Id == companyId));
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
+         
         }
 
         public async Task<IEnumerable<Company>> GetAll()
@@ -44,8 +53,15 @@ namespace BookingProject.Business.Concrete
 
         public async Task<Company> Update(Company company)
         {
-            ;
-            return await _companyDal.Update(company) ;
+            if (await _companyDal.Get(p => p.Id == company.Id) != null )
+            {
+                return await _companyDal.Update(company);
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
+            
         }
     }
 }

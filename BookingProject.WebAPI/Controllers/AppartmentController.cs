@@ -41,7 +41,7 @@ namespace BookingProject.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
 
@@ -53,14 +53,13 @@ namespace BookingProject.WebAPI.Controllers
         {
             try
             {
-                _appartmentService.Delete(appartmentId: id);
+                await _appartmentService.Delete(appartmentId: id);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error deleting data");
+                return BadRequest(ex.Message);
             }
           
           

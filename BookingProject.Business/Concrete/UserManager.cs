@@ -28,9 +28,18 @@ namespace BookingProject.Business.Concrete
    
         public async Task Delete(int userId)
         {
-            var userToDelete =  await _userDal.Get(p => p.Id == userId);
+            if (await _userDal.Get(p => p.Id == userId) != null)
+            {
+                await _userDal.Delete(await _userDal.Get(p => p.Id == userId));
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
 
-            await _userDal.Delete(userToDelete);
+        
+
+        
             
         }
 
@@ -46,8 +55,15 @@ namespace BookingProject.Business.Concrete
 
         public async Task<User> Update(User user)
         {
-            
-            return await _userDal.Update(user);
+            if (await _userDal.Get(p => p.Id == user.Id) != null)
+            {
+                return await _userDal.Update(user);
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
+
         }
     }
 }

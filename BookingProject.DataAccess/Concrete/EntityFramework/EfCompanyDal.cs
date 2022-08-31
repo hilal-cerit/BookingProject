@@ -56,6 +56,7 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
+
                 context.Database.ExecuteSqlRaw("UPDATE company SET name={1}, age={2},  address={3}, salary={4} WHERE id = {0}", entity.Id, entity.Name, entity.Age, entity.Address, entity.Salary);
                 await context.SaveChangesAsync();
                 return entity;

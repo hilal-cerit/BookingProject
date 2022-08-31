@@ -35,18 +35,11 @@ namespace BookingProject.DataAccess.Concrete.EntityFramework
         {
             using (booking1661538931410oilduxjtefmbtrtwContext context = new booking1661538931410oilduxjtefmbtrtwContext())
             {
-                var isConfirmed = context.Set<Booking>().FromSqlRaw("SELECT bookings.confirmed FROM bookings , users WHERE users.Id=bookings.user_id  and users.Id={0} ", entity.Id).FirstOrDefault();
-                if (isConfirmed.Confirmed == 0)
-                {
-                   
+               
                     context.Database.ExecuteSqlRaw("DELETE FROM users WHERE Id={0};",entity.Id);
-                     await context.SaveChangesAsync();
+                    await context.SaveChangesAsync();
                  
-                }
-                else
-                {
-                    throw new Exception("Can't delete this data because it is not confirmed");
-                }
+              
 
             }
 

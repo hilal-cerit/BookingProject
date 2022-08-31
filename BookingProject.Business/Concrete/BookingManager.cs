@@ -1,4 +1,5 @@
 ﻿using BookingProject.Business.Abstract;
+using BookingProject.Common.Entities;
 using BookingProject.DataAccess.Abstract;
 using BookingProject.DataAccess.Concrete.EntityFramework;
 using BookingProject.Entities.DTOs;
@@ -6,6 +7,7 @@ using BookingProject.Entities.Models;
 using ChatApp.Common.Result;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,9 +32,16 @@ namespace BookingProject.Business.Concrete
 
         public async Task Delete(int bookingId)
         {
-          
-            
-           await _bookingDal.Delete(await _bookingDal.Get(p => p.Id == bookingId));
+
+            if (await _bookingDal.Get(p => p.Id == bookingId) != null)
+            {
+                await _bookingDal.Delete(await _bookingDal.Get(p => p.Id == bookingId));
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
+           
         }
 
         public async Task<IEnumerable<Booking>> GetAll()
@@ -56,11 +65,19 @@ namespace BookingProject.Business.Concrete
                                               (!confirmed.HasValue || x.Confirmed == confirmed) 
                                              );
         }
+       
+      
 
         public async Task<Booking> Update(Booking booking)
         {
-           
-            return await _bookingDal.Update(booking);
+            if (await _bookingDal.Get(p => p.Id == booking.Id) !=null)
+            { 
+                return await _bookingDal.Update(booking);
+            }
+            else
+            {
+                throw new Exception("There isn't any data with this Id!");
+            }
         }
     }
 }
