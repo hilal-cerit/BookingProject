@@ -1,6 +1,5 @@
 # BookingProject
-* Booking/Search kısmındaki tarihleri aratma sorunu.[Diğer parametrelerde sorun yok] Örneğin isim ve confirme parametrelerini doldurup aratırsanız sorun çıkmayacaktır.
-* Confirmed'ün kontrol edildiği Booking,User ve Appartment Delete metodunun çalışma sorunu var.
+
 
 This project is written with C# language and using ASP.NET Core and EntityFramework Core.
 This project was written with a layered architectural understanding.(Which is 4 layers Entities-DataAccessLayer-Business Logic-WebAPI)
