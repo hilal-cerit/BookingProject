@@ -15,7 +15,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("/appartments")]
+        [Route("appartments")]
         public async Task<ActionResult> Create([FromBody] Appartment apparment)
         {
             try
@@ -31,7 +31,7 @@ namespace BookingProject.WebAPI.Controllers
 
         }
         [HttpPut]
-        [Route("/appartments")]
+        [Route("appartments")]
         public async Task<ActionResult> Update([FromBody] Appartment apparment)
         {
 
@@ -48,7 +48,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/appartments/id")]
+        [Route("appartments/id")]
         public async Task<ActionResult> Delete([FromBody] int id)
         {
             try
@@ -67,7 +67,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/appartments")]
+        [Route("appartments")]
         public async Task<ActionResult> GetAll()
         {
 
@@ -77,7 +77,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/appartments/id")]
+        [Route("appartments/id")]
         public async Task<ActionResult> GetById(int id)
         {
 

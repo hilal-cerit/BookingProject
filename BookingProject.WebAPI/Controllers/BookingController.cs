@@ -33,8 +33,10 @@ namespace BookingProject.WebAPI.Controllers
         ///     }
         /// </remarks>
         /// <param name="booking"></param>     
+        /// 
+
         [HttpGet]
-        [Route("/bookings/search")]
+        [Route("bookings/search")]
         public async Task<ActionResult> SearchBooking(string? firstName = null, string? lastName = null, string? startDate = null, string? finishDate = null, string? appartmentName = null, int? confirmed = null)
         {
             try
@@ -52,7 +54,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpPost]
-        [Route("/bookings")]
+        [Route("bookings")]
         public async Task<ActionResult> Create([FromBody] Booking booking)
         {
       
@@ -71,7 +73,7 @@ namespace BookingProject.WebAPI.Controllers
 
         }
         [HttpPut]
-        [Route("/bookings")]
+        [Route("bookings")]
         public async Task<ActionResult> Update([FromBody] Booking booking)
         {
            
@@ -90,7 +92,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/bookings/id")]
+        [Route("bookings/id")]
         public async Task<ActionResult> Delete([FromBody] int id)
         {
 
@@ -108,7 +110,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/bookings")]
+        [Route("bookings")]
         public async Task<ActionResult> GetAll()
         {
 
@@ -118,7 +120,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/bookings/id")]
+        [Route("bookings/id")]
         public async Task<ActionResult> GetById(int id)
         {
 

@@ -1,41 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace BookingProject.Entities.Models
 {
     public partial class booking1661538931410oilduxjtefmbtrtwContext : DbContext
     {
-
-  
-        public booking1661538931410oilduxjtefmbtrtwContext()
+     
+        public booking1661538931410oilduxjtefmbtrtwContext() 
         {
+           
         }
 
         public booking1661538931410oilduxjtefmbtrtwContext(DbContextOptions<booking1661538931410oilduxjtefmbtrtwContext> options)
             : base(options)
         {
+
         }
 
+  
+      
+
+
+      
         public virtual DbSet<Appartment> Appartments { get; set; } = null!;
         public virtual DbSet<Booking> Bookings { get; set; } = null!;
         public virtual DbSet<Company> Companies { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=psql-mock-database-cloud.postgres.database.azure.com;Database=booking1661538931410oilduxjtefmbtrtw;Username=xwwzlphatkrjstcjmzijpjny@psql-mock-database-cloud;Password=xvowrtzabjyowgmtwocwzfrd");
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+                optionsBuilder.UseNpgsql(configuration.GetConnectionString("BookingProjectConnection"));
             }
         }
         
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
             modelBuilder.Entity<Appartment>(entity =>
             {
                 entity.ToTable("appartments");

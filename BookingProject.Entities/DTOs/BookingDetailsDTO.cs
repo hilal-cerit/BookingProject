@@ -2,6 +2,7 @@
 using BookingProject.Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace BookingProject.Entities.DTOs
         public string? City { get; set; }
         public string? ZipCode { get; set; }
         public string? AppartmentAddress { get; set; }
-
+       
+      
         public string? StartsAt { get; set; }
         public string? FinishesAt { get; set; }
 

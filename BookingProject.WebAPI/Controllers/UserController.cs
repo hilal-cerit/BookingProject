@@ -21,7 +21,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("/users")]
+        [Route("users")]
         public async Task<ActionResult> Create([FromBody] User user)
         {
             try
@@ -42,7 +42,7 @@ namespace BookingProject.WebAPI.Controllers
 
         }
         [HttpPut]
-        [Route("/users")]
+        [Route("users")]
         public async Task<ActionResult>  Update([FromBody] User user)
         {
             try
@@ -65,7 +65,7 @@ namespace BookingProject.WebAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("/users/id")]
+        [Route("users/id")]
         public async Task<ActionResult> Delete([FromBody]int id)
         {
 
@@ -95,7 +95,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/users")]
+        [Route("users")]
         public async Task<ActionResult> GetAll()
          {
             try
@@ -113,7 +113,7 @@ namespace BookingProject.WebAPI.Controllers
 
 
         [HttpGet]
-        [Route("/users/id")]
+        [Route("users/id")]
         public async Task<ActionResult> GetById(int id)
         {
             try
