@@ -29,13 +29,12 @@ And then from package console manager we need to write this command in order to 
 * Run the application.
 
 ## Swagger 
+![12](https://user-images.githubusercontent.com/77547891/190441907-c532e023-9ca2-42ea-8dc3-c2c156a493e8.png)
 
-![1](https://user-images.githubusercontent.com/77547891/187552724-cae61cb7-fb7c-45c3-9a5c-30e1715e0e3e.PNG)
-![2](https://user-images.githubusercontent.com/77547891/187552753-48cce640-d875-4844-8db9-6ecbb0e86644.PNG)
 booking/search
-![3](https://user-images.githubusercontent.com/77547891/187679752-b8cb05ef-ae42-4c40-b005-803479bceb47.PNG)
-![4](https://user-images.githubusercontent.com/77547891/187679729-866c7602-33fc-43a8-944d-3c6f12e79615.PNG)
 
+![3](https://user-images.githubusercontent.com/77547891/190441962-d2fa11b0-5206-4cbe-a6b6-1f56b932ecac.PNG)
+![4](https://user-images.githubusercontent.com/77547891/190441967-0791ef25-3a2b-4e2e-bce5-8a670d505560.PNG)
 
 
 
