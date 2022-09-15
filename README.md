@@ -12,7 +12,7 @@ In this project   https://uibakery.io/sql-playground used as a database so it is
 
 And then from package console manager we need to write this command in order to get db tables version of entity classes.
 
-* Scaffold-DbContext "Host=psql-mock-database-cloud.postgres.database.azure.com;Database=booking1661538931410oilduxjtefmbtrtw;Username=xwwzlphatkrjstcjmzijpjny@psql-mock-database-cloud;Password=xvowrtzabjyowgmtwocwzfrd" Npgsql.EntityFrameworkCore.PostgreSQL -o Models
+* Scaffold-DbContext "Host=hostname;Database=databasename;Username=username;Password=password" Npgsql.EntityFrameworkCore.PostgreSQL -o Models
 
 
 
